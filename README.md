@@ -13,9 +13,12 @@ This is a final project for DGMD E-14 through Harvard Extension School. We are c
     - [ ] Create GameObject 
     - [ ] Generate Floor, Walls, and Ceilings with Collisions.
     - [ ] Generate Lights
-    - [ ] Place the Operating Table
-    - [ ] Place the Surgical Tray
-  - [ ] Poisson Disc Sampling
+    - [ ] Import OR Assets
+    - [ ] Create OR Prefabs
+      - [ ] Place the Operating Table Procedurally
+      - [ ] Place the Surgical Tray Procedurally
+  - [ ] Procedurally-Placed Equipment
+  -   [ ] Poisson Disc Sampling
 
 - [ ] Pick-Up Objects
   - [ ] Pick-Up GameObject
