@@ -11,8 +11,11 @@ This is a final project for DGMD E-14 through Harvard Extension School. We are c
   - [ ] Basic Room
     - [ ] Create Play Scene
     - [ ] Create GameObject 
-    - [ ] Generate Floor from room data (2D array)
-    - [ ] Generate Walls, Ceilings & Lights
+    - [ ] Generate Floor, Walls, and Ceilings with Collisions.
+    - [ ] Generate Lights
+    - [ ] Place the Operating Table
+    - [ ] Place the Surgical Tray
+  - [ ] Poisson Disc Sampling
 
 - [ ] Pick-Up Objects
   - [ ] Pick-Up GameObject
