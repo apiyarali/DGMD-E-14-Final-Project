@@ -29,3 +29,4 @@ This is a final project for DGMD E-14 through Harvard Extension School. We are c
     - [ ] Have the picked up object change its position to be in front of the player and move with them.
 
 - [ ] Cite Sources in Final Report
+  - [ ] https://sharpcoderblog.com/blog/unity-3d-fps-controller
