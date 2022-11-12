@@ -6,15 +6,24 @@ public class LevelController : MonoBehaviour
 {
     private bool isLevelGenerated;
 
-    // Properties related the floor of the level
+    // Properties related the floor, walls, and ceiling of the level
     public Transform FloorTransform = null;
     public Transform DangerFloorTransform = null;
     private bool floorIsGenerated;
+    public Transform WallA = null;
+    public Transform WallB = null;
+    public Transform WallC = null;
+    public Transform WallD = null;
+    private bool wallsAreGenerated;
 
     // TODO: Ceiling and walls
+    [SerializeField]
     public decimal MinLevelWidth = 4.0m;
+    [SerializeField]
     public decimal MaxLevelWidth = 16.0m;
+    [SerializeField]
     public decimal MinLevelLength = 8.0m;
+    [SerializeField]
     public decimal MaxLevelLength = 24.0m;
     private Tuple<int, int> levelDimensions;
     private float levelSizeScaleFactor = 0.25f;
@@ -48,6 +57,7 @@ public class LevelController : MonoBehaviour
     {
         isLevelGenerated = false;
         floorIsGenerated = false;
+        wallsAreGenerated = false;
     }
 
     private void GenerateLevel()
@@ -61,6 +71,29 @@ public class LevelController : MonoBehaviour
             FloorTransform.localScale = new Vector3(levelFloorWidth, 1.0f, levelFloorHeight);
             DangerFloorTransform.localScale = new Vector3(levelFloorWidth * 2.0f, 1.0f, levelFloorHeight * 2.0f);
             floorIsGenerated = true;
+        }
+
+        // TODO: Remove this hard-coded value
+        float wallPositionScalar = 5.0f;
+        if(!wallsAreGenerated)
+        {
+            if (WallA != null)
+            {
+                WallA.localPosition = new Vector3(levelDimensions.Item1 * levelSizeScaleFactor * wallPositionScalar + 0.5f, WallA.localPosition.y, WallA.localPosition.z);
+            }
+            if (WallB != null)
+            {
+                WallB.localPosition = new Vector3(-levelDimensions.Item1 * levelSizeScaleFactor * wallPositionScalar - 0.5f, WallB.localPosition.y, WallB.localPosition.z);
+            }
+            if (WallC != null)
+            {
+                WallC.localPosition = new Vector3(WallC.localPosition.x, WallC.localPosition.y, levelDimensions.Item2 * levelSizeScaleFactor * wallPositionScalar + 0.5f);
+            }
+            if (WallD != null)
+            {
+                WallD.localPosition = new Vector3(WallD.localPosition.x, WallD.localPosition.y, -levelDimensions.Item2 * levelSizeScaleFactor * wallPositionScalar - 0.5f);
+            }
+            wallsAreGenerated = true;
         }
 
         isLevelGenerated = true;
