@@ -6,9 +6,9 @@ public class PlayerCharacterController : MonoBehaviour
 {
     CharacterController characterController;
     public Camera playerCamera;
-    public float walkSpeed = 6.4f;
-    public float runningSpeed = 10.0f;
-    public float jumpSpeed = 8.0f;
+    public float walkSpeed = 1.0F;
+    public float runningSpeed = 2.0f;
+    public float jumpSpeed = 2.0f;
     public float fallSpeed = 16.0f;
     public float lookSpeed = 2.0f;
     Vector3 moveDirection = Vector3.zero;
