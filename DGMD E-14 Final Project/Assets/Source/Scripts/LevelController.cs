@@ -20,14 +20,15 @@ public class LevelController : MonoBehaviour
     [SerializeField]
     public decimal MinLevelWidth = 4.0m;
     [SerializeField]
-    public decimal MaxLevelWidth = 16.0m;
+    public decimal MaxLevelWidth = 8.0m;
     [SerializeField]
-    public decimal MinLevelLength = 8.0m;
+    public decimal MinLevelLength = 4.0m;
     [SerializeField]
-    public decimal MaxLevelLength = 24.0m;
+    public decimal MaxLevelLength = 8.0m;
     private Tuple<int, int> levelDimensions;
     private float levelSizeScaleFactor = 0.25f;
-    private int[,] levelData;
+
+    public PoissonPlaceableSpawner placeableObjectSpawner;
 
     // Start is called before the first frame update
     void Start()
@@ -40,7 +41,6 @@ public class LevelController : MonoBehaviour
         decimal levelWidth = RandomNumbers.GetRandomDecimalInclusive(MinLevelWidth, MaxLevelWidth);
         decimal levelHeight = RandomNumbers.GetRandomDecimalInclusive(MinLevelLength, MaxLevelLength);
         levelDimensions = Tuple.Create((int)Math.Floor(levelWidth), (int)Math.Floor(levelHeight));
-        levelData = new int[levelDimensions.Item1, levelDimensions.Item2];
         Debug.Log("Level size is " + levelDimensions.Item1 + " by " + levelDimensions.Item2);
 
     }
@@ -94,6 +94,14 @@ public class LevelController : MonoBehaviour
                 WallD.localPosition = new Vector3(WallD.localPosition.x, WallD.localPosition.y, -levelDimensions.Item2 * levelSizeScaleFactor * wallPositionScalar - 0.5f);
             }
             wallsAreGenerated = true;
+        }
+
+        // Set the object spawner parameters:
+        if(placeableObjectSpawner != null)
+        {
+            // TODO: convert plane size to Unity units
+            float conversionFactor = 2.0f;
+            placeableObjectSpawner.SetSpawnPlaneSize(new Vector2Int((int)((levelDimensions.Item1 + 1) * conversionFactor), (int)((levelDimensions.Item2 + 1) * conversionFactor)));
         }
 
         isLevelGenerated = true;
