@@ -12,10 +12,12 @@ public class PoissonPlaceableSpawner : MonoBehaviour
     private int[,] levelData;
     private List<Vector2> spawnPoints = new();
 
+    private bool levelIsFull;
     private bool spawningIsReady;
     // Start is called before the first frame update
     void Start()
     {
+        levelIsFull = false;
         if (XZSpawnPlaneSize.x < 0 && XZSpawnPlaneSize.y < 0)
         {
             spawningIsReady = false;
@@ -23,6 +25,7 @@ public class PoissonPlaceableSpawner : MonoBehaviour
         else
         {
             levelData = new int[(int)XZSpawnPlaneSize.x, (int)XZSpawnPlaneSize.y];
+            BlockLevelMiddleFromSpawns();
             spawningIsReady = true;
         }
 
@@ -39,11 +42,47 @@ public class PoissonPlaceableSpawner : MonoBehaviour
         Debug.Log("Spawn plane size set: (" + XZSpawnPlaneSize.x + ", " + XZSpawnPlaneSize.y + ")");
         levelData = new int[XZSpawnPlaneSize.x, XZSpawnPlaneSize.y];
         spawningIsReady = true;
+        BlockLevelMiddleFromSpawns();
+    }
+
+    private void BlockLevelMiddleFromSpawns()
+    {
+        if (levelData == null)
+        {
+            Debug.LogError("level is null");
+            return;
+        }
+        if (XZSpawnPlaneSize.x <= 0 || XZSpawnPlaneSize.y <= 0)
+        {
+            Debug.LogError("level spawn plane size is invalid");
+            return;
+        }
+
+
+        int centerX = XZSpawnPlaneSize.x / 2;
+        int centerZ = XZSpawnPlaneSize.y / 2;
+        Debug.Log("Blocking center of level from spawns at: (" + centerX + ", " + centerZ + ").");
+        levelData[centerX, centerZ] = 1;
+        for (int x = centerX - 2; x < centerX + 2; x++)
+        {
+            for (int z = centerZ - 2; z < centerZ + 2; z++)
+            {
+                if (x >= 0 && z >= 0 && x < XZSpawnPlaneSize.x && z < XZSpawnPlaneSize.y)
+                {
+                    levelData[x, z] = 1;
+                }
+            }
+        }
     }
 
     // Update is called once per frame
     void Update()
     {
+        if (levelIsFull)
+        {
+            return;
+        }
+
         if (!spawningIsReady)
         {
             return;
@@ -53,7 +92,9 @@ public class PoissonPlaceableSpawner : MonoBehaviour
         if (!IsPlaneReadyToSpawn())
         {
             return;
-        } 
+        }
+
+        // TODO: Spawn plane tiles one time only if flagged to make a plane.
 
         // Check if enough time has passed between the last spawn:
         if (!IsItTimeToSpawn(Time.deltaTime))
@@ -64,12 +105,14 @@ public class PoissonPlaceableSpawner : MonoBehaviour
         int numberOfTries = 0;
         while (numberOfTries < CandiatePointAttempts)
         {
-            int xPositionCandidate = RandomNumbers.GetRandomIntegerInclusive(0, XZSpawnPlaneSize.x - 1);
-            int yPositionCandidate = RandomNumbers.GetRandomIntegerInclusive(0, XZSpawnPlaneSize.y - 1);
+            // TODO: Use previous spawn as spawn points and search randomly within their radius:
+
+            int xPositionCandidate = RandomNumbers.GetRandomIntegerInclusive(1, XZSpawnPlaneSize.x - 1);
+            int yPositionCandidate = RandomNumbers.GetRandomIntegerInclusive(1, XZSpawnPlaneSize.y - 1);
             Debug.Log(levelData);
-            if (levelData[xPositionCandidate, yPositionCandidate] != 1)
+            if (levelData[xPositionCandidate, yPositionCandidate] == 0)
             {
-                // TODO: have the prefab orientation randomly rotated by 90 degree intervals
+                // TODO: Check for any other objects within the radius of this spawn point
                 if (ObjectsToSpawn[spawnIndex] != null)
                 {
                     int randomRotation = Random.Range(0, 4) * 90;
@@ -81,26 +124,20 @@ public class PoissonPlaceableSpawner : MonoBehaviour
                     levelData[xPositionCandidate, yPositionCandidate] = 1;
 
                     // TODO: SPAWN THE FIRST OBJECT AT THE CENTER OF THE ROOM AND THEN SAMPLE FROM THERE
-                    // TODO: fill in the level data based on spawned object radius
                     // todo: poisson disc sampling
                     // todo: add object as spawn point
+                    int radius = GetPlaceableRadius(ObjectsToSpawn[spawnIndex]);
 
-                    // TEMP: Block 1 tile around each spawned object.
-                    if (xPositionCandidate - 1 >= 0)
+                    // Block tiles around the spawn point based on the radius:
+                    for (int x = xPositionCandidate - radius; x < xPositionCandidate + radius; x++)
                     {
-                        levelData[xPositionCandidate - 1, yPositionCandidate] = 1;
-                    }
-                    if (xPositionCandidate + 1 < XZSpawnPlaneSize.x)
-                    {
-                        levelData[xPositionCandidate + 1, yPositionCandidate] = 1;
-                    }
-                    if (yPositionCandidate - 1 >= 0)
-                    {
-                        levelData[xPositionCandidate, yPositionCandidate - 1] = 1;
-                    }
-                    if (yPositionCandidate < XZSpawnPlaneSize.y)
-                    {
-                        levelData[xPositionCandidate, yPositionCandidate + 1] = 1;
+                        for (int z = yPositionCandidate - radius; z < yPositionCandidate + radius; z++)
+                        {
+                            if (x >= 0 && x < XZSpawnPlaneSize.x && z >= 0 && z < XZSpawnPlaneSize.y)
+                            {
+                                levelData[x, z] = radius;
+                            }
+                        }
                     }
 
                     break;
@@ -109,8 +146,23 @@ public class PoissonPlaceableSpawner : MonoBehaviour
             numberOfTries++;
         }
 
-        // Increment the spawn index so that the next object spawns next time:
-        spawnIndex += 1;
+        // TODO: use the spawn points to tell if the level is full when a spawn has failed at every point:
+        // If the number of tries to place an object failed, then the level is full:
+        if (numberOfTries >= CandiatePointAttempts)
+        {
+            levelIsFull = true;
+            Debug.Log("The spawn plane is full.");
+        }
+        else
+        {
+            // Increment the spawn index so that the next object spawns next time:
+            spawnIndex += 1;
+            if (spawnIndex >= ObjectsToSpawn.Count)
+            {
+                spawnIndex = 0;
+            }
+            PrintRemainingPlaneCapacity();
+        }
     }
 
     private bool IsPlaneReadyToSpawn()
@@ -133,5 +185,41 @@ public class PoissonPlaceableSpawner : MonoBehaviour
             return true;
         }
         return false;
+    }
+
+    private int GetPlaceableRadius(GameObject placeable)
+    {
+        // TODO: Make this default value a public parameter for the user to set.
+        int radius = 2;
+        PlaceableObject placeableObject = placeable.GetComponent(typeof(PlaceableObject)) as PlaceableObject;
+
+        if (placeableObject != null)
+        {
+            radius = Mathf.RoundToInt(placeableObject.XZRadiusInUnityUnits + 0.5f);
+            if (radius == 0)
+            {
+                radius = 1;
+            }
+            return radius;
+        }
+
+        Debug.LogError("Radius not found on placeable object.");
+        return radius;
+    }
+
+    private void PrintRemainingPlaneCapacity()
+    {
+        int emptyCells = 0;
+        for(int i = 0; i < XZSpawnPlaneSize.x; i++)
+        {
+            for (int j = 0; j < XZSpawnPlaneSize.y; j++)
+            {
+                if(levelData[i, j] == 0)
+                {
+                    emptyCells++;
+                }
+            }
+        }
+        Debug.Log("Spawn Plane Capacity Remaining: " + emptyCells + "/ " + (XZSpawnPlaneSize.x * XZSpawnPlaneSize.y));
     }
 }
