@@ -58,15 +58,7 @@ public class PickupController : MonoBehaviour
     private void MoveObject()
     {
         Vector3 cameraPosition = new Vector3(this.gameObject.transform.position.x, 1.375f + this.gameObject.transform.position.y, this.gameObject.transform.position.z + 2.0f);
-        this.heldObject.transform.position = cameraPosition;/*
-        if (Vector3.Distance(this.heldObject.transform.position, cameraPosition) > 0.1f)
-        {
-            Vector3 moveDirection = cameraPosition - this.heldObject.transform.position;
-            Debug.Log(moveDirection);
-            this.heldObjectRigidbody.AddForce(moveDirection * 150.0f); // TODO: pickup force
-        }*/
-
-        // Raise the object to eye level:
+        this.heldObject.transform.position = cameraPosition;
     }
 
     private void PickupObject()
