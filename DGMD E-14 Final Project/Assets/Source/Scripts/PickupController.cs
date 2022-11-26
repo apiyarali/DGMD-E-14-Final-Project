@@ -46,7 +46,7 @@ public class PickupController : MonoBehaviour
             float pickupSpeed = 1.0f;
             this.heldObject.transform.parent = this.transform;
             float deltaY = 0;
-            float deltaZ = 0;
+            float deltaZ = 0; // TODO: delta z
             if(this.heldObject.transform.localPosition.y < 1.375f)
             {
                 deltaY = pickupSpeed * Time.deltaTime;
