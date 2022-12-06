@@ -74,8 +74,8 @@ public class PickupController : MonoBehaviour
         GameObject pickupableObject = null;
 
         RaycastHit[] raycastHits;
-        //Ray pickupRay = new Ray(transform.position, transform.forward);
-        Ray pickupRay = Camera.main.ScreenPointToRay(Input.mousePosition);
+        Ray pickupRay = new Ray(transform.position, transform.forward);
+        //Ray pickupRay = Camera.main.ScreenPointToRay(Input.mousePosition);
         raycastHits = Physics.RaycastAll(pickupRay);
         Array.Sort(raycastHits, (RaycastHit a, RaycastHit b) => a.distance.CompareTo(b.distance));
         for (int i = 0; i < raycastHits.Length; i++)

@@ -146,8 +146,8 @@ public class PoissonPlaceableSpawner : MonoBehaviour
         while (numberOfTries < SpawnPointCandiateAttempts)
         {
             // TODO: Spawn objects from previously spawned objects in random direction
-            int xPositionCandidate = RandomNumbers.GetRandomIntegerInclusive(1, XZSpawnPlaneSize.x - 1);
-            int yPositionCandidate = RandomNumbers.GetRandomIntegerInclusive(1, XZSpawnPlaneSize.y - 1);
+            int xPositionCandidate = RandomNumbers.GetRandomIntegerInclusive(0, XZSpawnPlaneSize.x - 1);
+            int yPositionCandidate = RandomNumbers.GetRandomIntegerInclusive(0, XZSpawnPlaneSize.y - 1);
             if (levelData[xPositionCandidate, yPositionCandidate] == 0)
             {
                 // TODO: Sample for any other objects within the radius of this spawn point:
@@ -214,7 +214,6 @@ public class PoissonPlaceableSpawner : MonoBehaviour
 
     private int GetPlaceableRadius(GameObject placeable)
     {
-        // TODO: Make this default value a public parameter for the user to set.
         int radius = 2;
         PlaceableObject placeableObject = placeable.GetComponent(typeof(PlaceableObject)) as PlaceableObject;
 
