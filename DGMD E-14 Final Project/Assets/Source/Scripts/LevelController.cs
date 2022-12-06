@@ -18,11 +18,11 @@ public class LevelController : MonoBehaviour
 
     // TODO: Ceiling and walls
     [SerializeField]
-    public decimal MinLevelWidth = 4.0m;
+    public decimal MinLevelWidth = 8.0m;
     [SerializeField]
     public decimal MaxLevelWidth = 8.0m;
     [SerializeField]
-    public decimal MinLevelLength = 4.0m;
+    public decimal MinLevelLength = 8.0m;
     [SerializeField]
     public decimal MaxLevelLength = 8.0m;
     private Tuple<int, int> levelDimensions;

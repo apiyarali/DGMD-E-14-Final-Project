@@ -62,11 +62,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   EssentialObjectsToSpawn:
   - {fileID: 3251682557730124017, guid: 1148ee6701bfe5d4d8ab60754cd4aa1a, type: 3}
-  HowManyOfEachEssentialObjectToSpawn: 4
+  HowManyOfEachEssentialObjectToSpawn: 0
   NonEssentialObjectsToSpawn:
   - {fileID: 3251682557730124017, guid: 1148ee6701bfe5d4d8ab60754cd4aa1a, type: 3}
   SpawnPlaneOffset: {x: 0, y: 1, z: 0}
-  XZSpawnPlaneSize: {x: 2, y: 2}
+  XZSpawnPlaneSize: {x: 3, y: 3}
   RadiusOfUnspawnableCenter: 0
   SpawnPointCandiateAttempts: 100
   SecondsBetweenSpawns: 0.25

@@ -48,10 +48,14 @@ public class PickupController : MonoBehaviour
             float pickupSpeed = 1.0f;
             this.heldObject.transform.parent = this.transform;
             float deltaY = 0;
-            float deltaZ = 0; // TODO: delta z
+            float deltaZ = 0;
             if(this.heldObject.transform.localPosition.y < 1.375f)
             {
                 deltaY = pickupSpeed * Time.deltaTime;
+            }
+            if (this.heldObject.transform.localPosition.z < 1.25f)
+            {
+                deltaZ = pickupSpeed * Time.deltaTime;
             }
             this.heldObject.transform.localPosition = new Vector3(0, this.heldObject.transform.localPosition.y + deltaY, 1.25f);
         }
@@ -76,7 +80,7 @@ public class PickupController : MonoBehaviour
         RaycastHit[] raycastHits;
         Ray pickupRay = new Ray(transform.position, transform.forward);
         //Ray pickupRay = Camera.main.ScreenPointToRay(Input.mousePosition);
-        raycastHits = Physics.RaycastAll(pickupRay);
+        raycastHits = Physics.RaycastAll(pickupRay, this.PickupRange, this.PickupLayer);
         Array.Sort(raycastHits, (RaycastHit a, RaycastHit b) => a.distance.CompareTo(b.distance));
         for (int i = 0; i < raycastHits.Length; i++)
         {
