@@ -1,7 +1,9 @@
+using System;
 using UnityEngine;
 
 public class PickupController : MonoBehaviour
 {
+    public LayerMask PickupLayer;
     private GameObject heldObject = null;
     public float TimeBetweenPickups = 0.5f;
     private float timeSinceLastPickup = 0;
@@ -70,9 +72,19 @@ public class PickupController : MonoBehaviour
 
         Debug.Log("Attemping to pickup object.");
         GameObject pickupableObject = null;
-        RaycastHit raycastHit;
-        if (Physics.Raycast(this.transform.position, transform.TransformDirection(Vector3.forward), out raycastHit, this.PickupRange)) {
-            pickupableObject = raycastHit.transform.gameObject;
+
+        RaycastHit[] raycastHits;
+        //Ray pickupRay = new Ray(transform.position, transform.forward);
+        Ray pickupRay = Camera.main.ScreenPointToRay(Input.mousePosition);
+        raycastHits = Physics.RaycastAll(pickupRay);
+        Array.Sort(raycastHits, (RaycastHit a, RaycastHit b) => a.distance.CompareTo(b.distance));
+        for (int i = 0; i < raycastHits.Length; i++)
+        {
+            if(raycastHits[i].transform.gameObject.GetComponent<Rigidbody>() != null)
+            {
+                pickupableObject = raycastHits[i].transform.gameObject;
+                break;
+            }
         }
 
         if (pickupableObject != null)

@@ -152,13 +152,13 @@ public class PoissonPlaceableSpawner : MonoBehaviour
             {
                 // TODO: Sample for any other objects within the radius of this spawn point:
                 int randomRotation = Random.Range(0, 4) * 90;
-                Instantiate(placeableObject,
+                GameObject placedObject = Instantiate(placeableObject,
                     new Vector3(this.gameObject.transform.position.x - (XZSpawnPlaneSize.x / 2) + SpawnPlaneOffset.x + xPositionCandidate,
                     this.gameObject.transform.position.y + SpawnPlaneOffset.y,
                     this.gameObject.transform.position.z - (XZSpawnPlaneSize.y / 2) + SpawnPlaneOffset.z + yPositionCandidate), // Added to Z here because objects are only spawned on the XZ plane.
                     Quaternion.Euler(new Vector3(0, randomRotation, 0)));
                 levelData[xPositionCandidate, yPositionCandidate] = 1;
-
+                placedObject.transform.parent = this.transform;
                 int radius = GetPlaceableRadius(placeableObject);
 
                 // Block tiles around the spawn point based on the radius:

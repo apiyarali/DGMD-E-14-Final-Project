@@ -12,7 +12,8 @@ GameObject:
   - component: {fileID: 3251682557730124020}
   - component: {fileID: 3251682557730124021}
   - component: {fileID: 3251682557730124022}
-  m_Layer: 0
+  - component: {fileID: -8391807504817859705}
+  m_Layer: 8
   m_Name: Collectible
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -62,7 +63,7 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 0.35, y: 0.35, z: 0.35}
+  m_Size: {x: 0.5, y: 0.25, z: 0.5}
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &3251682557730124022
 MonoBehaviour:
@@ -83,6 +84,19 @@ MonoBehaviour:
   - {fileID: 100002, guid: 56c79b927b90a154cb6606bee0185d50, type: 3}
   - {fileID: 100004, guid: 3b59ca5233ea63e46b399c9fc7977e9d, type: 3}
   NumberOfObjectsToCreate: 1
+--- !u!114 &-8391807504817859705
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3251682557730124017}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 326458ada8e0e6641b0dc53434fa52c8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  XZRadiusInUnityUnits: 0.25
 --- !u!1 &3251682558090697633
 GameObject:
   m_ObjectHideFlags: 0
@@ -124,7 +138,7 @@ MeshFilter:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3251682558090697633}
-  m_Mesh: {fileID: 10207, guid: 0000000000000000e000000000000000, type: 0}
+  m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!23 &3251682558090697637
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -184,6 +198,6 @@ MonoBehaviour:
   RandomRotation: 0
   UniformTransformation: 1
   MinTransformationMagnitude: {x: 0.02, y: 0.02, z: 0.02}
-  MaxTransformationMagnitude: {x: 0.02, y: 0.02, z: 0.02}
-  MinTransformationSpeed: {x: 0.02, y: 0.02, z: 0.02}
+  MaxTransformationMagnitude: {x: 0.04, y: 0.04, z: 0.04}
+  MinTransformationSpeed: {x: 0.01, y: 0.01, z: 0.01}
   MaxTransformationSpeed: {x: 0.02, y: 0.02, z: 0.02}
