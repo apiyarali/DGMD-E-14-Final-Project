@@ -13,3 +13,5 @@ This project was created in Unity using the Occulus SDK for VR integration.
   - Note:  You will need an IDE such as Visual Studio Community and other usual Unity dependencies: https://unity.com/download
 - Occulus:
   - Depending on your wearable hardware, you will need a companion app for development: https://developer.oculus.com/
+  
+Once you have an IDE, Unity, and Occulus installed, open the project via the Unity Hub, load a scene, and press play.
