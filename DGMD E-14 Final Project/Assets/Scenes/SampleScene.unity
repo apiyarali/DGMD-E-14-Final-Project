@@ -3359,6 +3359,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1756475951}
   - component: {fileID: 1756475952}
+  - component: {fileID: 1756475953}
   m_Layer: 0
   m_Name: Collection Point
   m_TagString: Untagged
@@ -3396,6 +3397,19 @@ SphereCollider:
   serializedVersion: 2
   m_Radius: 0.5
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &1756475953
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1756475950}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3405e9868b636ac46acdc948c5e97de0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  SuccessParticles: {fileID: 4226216111074120654, guid: 10bc916bafb6043458a7e420cecb44b2, type: 3}
 --- !u!1 &1775163633 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 8616685848737228372, guid: c5efc39a8aaf6e64ea40e9ad573e9b47, type: 3}
