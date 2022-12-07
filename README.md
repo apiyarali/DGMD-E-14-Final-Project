@@ -9,7 +9,7 @@ This is a final project for DGMD E-14 through Harvard Extension School. We are c
 ### How to Install and Run
 This project was created in Unity using the Occulus SDK for VR integration.
 - Unity:
-  - Version: 2021.3.13f1
-  - Note:  You will need an IDE such as Visual Studio Community and other usual Unity dependencies.
+  - This project is created for the following Unity version: 2021.3.13f1
+  - Note:  You will need an IDE such as Visual Studio Community and other usual Unity dependencies: https://unity.com/download
 - Occulus:
   - Depending on your wearable hardware, you will need a companion app for development: https://developer.oculus.com/
