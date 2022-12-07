@@ -22,10 +22,10 @@ This project was created in Unity using the Occulus SDK for VR integration.
 ### How to Run
 - Close Unity, then start the Oculus app on your computer  to ensure the link between Unity and the hardware occurs.
 - Open Unity and load the project ensuring you select the version noted above.
-- Load the scene "ORScene" and press the play button within the editor to use mouse and keyboard controls.
 - Reconnect your VR headset to your development computer via USB after opening the Occulus app and Unity.
 - Your headset will prompt you for permissions (to update files and enable Occulus Link, for example) and you must ensure you provide these for the app to deploy via USB.
-	
+- Load the scene "ORScene" and press the play button within the editor to use mouse and keyboard controls.
+
 ### Points of Interest
 - The C# scripts can be found in: "/DGMD E-14 Final Project/Assets/Source/Scripts/"
 - The prefab objects can be found in: "/DGMD E-14 Final Project/Assets/Prefabs/"
