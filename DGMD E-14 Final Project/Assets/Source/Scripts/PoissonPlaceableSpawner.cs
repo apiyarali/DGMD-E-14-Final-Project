@@ -207,8 +207,8 @@ public class PoissonPlaceableSpawner : MonoBehaviour
         int numberOfTries = 0;
         while (numberOfTries < SpawnPointCandiateAttempts)
         {
-            int xPositionCandidate = RandomNumbers.GetRandomIntegerInclusive(0, XZSpawnPlaneSize.x - 1);
-            int yPositionCandidate = RandomNumbers.GetRandomIntegerInclusive(0, XZSpawnPlaneSize.y - 1);
+            int xPositionCandidate = UnityEngine.Random.Range(0, XZSpawnPlaneSize.x - 1);
+            int yPositionCandidate = UnityEngine.Random.Range(0, XZSpawnPlaneSize.y - 1);
             if (spawnPlaneData[xPositionCandidate, yPositionCandidate] == 0)
             {
                 int randomRotation = Random.Range(0, 4) * 90;
