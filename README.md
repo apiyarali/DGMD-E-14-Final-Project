@@ -30,3 +30,6 @@ This project was created in Unity using the Occulus SDK for VR integration.
 - The C# scripts can be found in: "/DGMD E-14 Final Project/Assets/Source/Scripts/"
 - The prefab objects can be found in: "/DGMD E-14 Final Project/Assets/Prefabs/"
 - The OR scene can be found in: "/DGMD E-14 Final Project/Assets/Scenes/"
+
+### Demo
+- https://www.youtube.com/watch?v=YrA0gC6HJTM
