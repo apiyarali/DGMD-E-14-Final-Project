@@ -2,42 +2,107 @@ using Assets.Source;
 using System;
 using UnityEngine;
 
+/// <summary>
+/// A script which creates the objects within the game's level.
+/// </summary>
 public class LevelController : MonoBehaviour
 {
+    /// <summary>
+    /// The state of whether or not the level has been generated.
+    /// </summary>
     private bool isLevelGenerated;
 
-    // Properties related the floor, walls, and ceiling of the level
+    /// <summary>
+    /// The transform of the floor which will be positioned according to randomized level parameters.
+    /// </summary>
     public Transform FloorTransform = null;
+
+    /// <summary>
+    /// The transform of the 'danger' floor which can kill the player if they fall through the world to it.
+    /// </summary>
     public Transform DangerFloorTransform = null;
+
+    /// <summary>
+    /// The state of whether or not the floor has been generated.
+    /// </summary>
     private bool floorIsGenerated;
+
+    /// <summary>
+    /// The transform of one of the four walls of the level.
+    /// </summary>
     public Transform WallA = null;
+
+    /// <summary>
+    /// The transform of one of the four walls of the level.
+    /// </summary>
     public Transform WallB = null;
+
+    /// <summary>
+    /// The transform of one of the four walls of the level.
+    /// </summary>
     public Transform WallC = null;
+
+    /// <summary>
+    /// The transform of one of the four walls of the level.
+    /// </summary>
     public Transform WallD = null;
+
+    /// <summary>
+    /// The state of whether or not the walls have been generated.
+    /// </summary>
     private bool wallsAreGenerated;
 
-    // TODO: Ceiling and walls
-    [SerializeField]
+    /// <summary>
+    /// The minimum width of the level.
+    /// </summary>
     public decimal MinLevelWidth = 8.0m;
-    [SerializeField]
+
+    /// <summary>
+    /// The maximum width of the level.
+    /// </summary>
     public decimal MaxLevelWidth = 8.0m;
-    [SerializeField]
+
+    /// <summary>
+    /// The maximum length of the level.
+    /// </summary>
     public decimal MinLevelLength = 8.0m;
-    [SerializeField]
+
+    /// <summary>
+    /// The maximum length of the level.
+    /// </summary>
     public decimal MaxLevelLength = 8.0m;
+
+    /// <summary>
+    /// The dimensions of the square level.
+    /// </summary>
     private Tuple<int, int> levelDimensions;
+
+    /// <summary>
+    /// The scale factor of the level to convert its dimensions to world space.
+    /// </summary>
     private float levelSizeScaleFactor = 0.25f;
 
+    /// <summary>
+    /// The disc sampler for placing objects into the level.
+    /// </summary>
     public PoissonPlaceableSpawner placeableObjectSpawner;
 
-    // Start is called before the first frame update
+    /// <summary>
+    /// A scalar to multiply the distance of the walls from normal level size.
+    /// </summary>
+    public float WallPositionScalar = 5.0f;
+
+    /// <summary>
+    /// A scalar to convert the floor plane size to Unity units.
+    /// </summary>
+    public float floorPlaneConversionFactorToUnityUnits = 2.0f;
+
+    /// <summary>
+    /// Start is called before the first frame update.
+    /// </summary>
     void Start()
     {
-        // TODO: Find the floor, if null.
-        // TODO: Find the danger floor, if null.
-
         // Determines the Size of the Level:
-        // TODO: validate the min/max level size inputs.
         decimal levelWidth = RandomNumbers.GetRandomDecimalInclusive(MinLevelWidth, MaxLevelWidth);
         decimal levelHeight = RandomNumbers.GetRandomDecimalInclusive(MinLevelLength, MaxLevelLength);
         levelDimensions = Tuple.Create((int)Math.Floor(levelWidth), (int)Math.Floor(levelHeight));
@@ -45,6 +110,9 @@ public class LevelController : MonoBehaviour
 
     }
 
+    /// <summary>
+    /// FixedUpdate is called before each internal physics update.
+    /// </summary>
     void FixedUpdate()
     {
         if(!isLevelGenerated)
@@ -53,6 +121,9 @@ public class LevelController : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Sets the level state such that it will be regenerated at next update.
+    /// </summary>
     public void RegenerateLevel()
     {
         isLevelGenerated = false;
@@ -60,11 +131,13 @@ public class LevelController : MonoBehaviour
         wallsAreGenerated = false;
     }
 
+    /// <summary>
+    /// Generates the floor, walls, and level objects.
+    /// </summary>
     private void GenerateLevel()
     {
         if (!floorIsGenerated && FloorTransform != null)
         {
-            // TODO: Generate the floor with tiles
             // Change Floor Size:
             float levelFloorWidth = levelDimensions.Item1 * levelSizeScaleFactor;
             float levelFloorHeight = levelDimensions.Item2 * levelSizeScaleFactor;
@@ -73,25 +146,23 @@ public class LevelController : MonoBehaviour
             floorIsGenerated = true;
         }
 
-        // TODO: Remove this hard-coded value
-        float wallPositionScalar = 5.0f;
         if(!wallsAreGenerated)
         {
             if (WallA != null)
             {
-                WallA.localPosition = new Vector3(levelDimensions.Item1 * levelSizeScaleFactor * wallPositionScalar + 0.5f, WallA.localPosition.y, WallA.localPosition.z);
+                WallA.localPosition = new Vector3(levelDimensions.Item1 * levelSizeScaleFactor * WallPositionScalar + 0.5f, WallA.localPosition.y, WallA.localPosition.z);
             }
             if (WallB != null)
             {
-                WallB.localPosition = new Vector3(-levelDimensions.Item1 * levelSizeScaleFactor * wallPositionScalar - 0.5f, WallB.localPosition.y, WallB.localPosition.z);
+                WallB.localPosition = new Vector3(-levelDimensions.Item1 * levelSizeScaleFactor * WallPositionScalar - 0.5f, WallB.localPosition.y, WallB.localPosition.z);
             }
             if (WallC != null)
             {
-                WallC.localPosition = new Vector3(WallC.localPosition.x, WallC.localPosition.y, levelDimensions.Item2 * levelSizeScaleFactor * wallPositionScalar + 0.5f);
+                WallC.localPosition = new Vector3(WallC.localPosition.x, WallC.localPosition.y, levelDimensions.Item2 * levelSizeScaleFactor * WallPositionScalar + 0.5f);
             }
             if (WallD != null)
             {
-                WallD.localPosition = new Vector3(WallD.localPosition.x, WallD.localPosition.y, -levelDimensions.Item2 * levelSizeScaleFactor * wallPositionScalar - 0.5f);
+                WallD.localPosition = new Vector3(WallD.localPosition.x, WallD.localPosition.y, -levelDimensions.Item2 * levelSizeScaleFactor * WallPositionScalar - 0.5f);
             }
             wallsAreGenerated = true;
         }
@@ -99,9 +170,7 @@ public class LevelController : MonoBehaviour
         // Set the object spawner parameters:
         if(placeableObjectSpawner != null)
         {
-            // TODO: convert plane size to Unity units
-            float conversionFactor = 2.0f;
-            placeableObjectSpawner.SetSpawnPlaneSize(new Vector2Int((int)((levelDimensions.Item1 + 1) * conversionFactor), (int)((levelDimensions.Item2 + 1) * conversionFactor)));
+            placeableObjectSpawner.SetSpawnPlaneSize(new Vector2Int((int)((levelDimensions.Item1 + 1) * floorPlaneConversionFactorToUnityUnits), (int)((levelDimensions.Item2 + 1) * floorPlaneConversionFactorToUnityUnits)));
         }
 
         isLevelGenerated = true;

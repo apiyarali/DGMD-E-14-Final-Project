@@ -1,39 +1,76 @@
 using System;
 using UnityEngine;
 
+/// <summary>
+/// This script component is used to control picking up and dropping object's with rigidbody components attached to them.
+/// </summary>
 public class PickupController : MonoBehaviour
 {
+    [Header("Pickup Object Layer")]
+    [Tooltip("Which layer mask should this controller interact with?")]
     public LayerMask PickupLayer;
-    private GameObject heldObject = null;
+
+    [Header("Time Between Pickups")]
+    [Tooltip("How long of a delay should there be between picking up or dropping?")]
     public float TimeBetweenPickups = 0.5f;
-    private float timeSinceLastPickup = 0;
+
+    [Header("Pickup range")]
+    [Tooltip("How far should this controller be able to reach in picking up objects?")]
     public float PickupRange = 1.0f;
+
+    /// <summary>
+    /// The time, in seconds, since the last pickup action occcurred.
+    /// </summary>
+    private float timeInSecondsSinceLastPickupAction = 0;
+
+    /// <summary>
+    /// A reference to the currently held object, if any.
+    /// </summary>
+    private GameObject heldObject = null;
+
+    /// <summary>
+    /// A reference to the currently held object's rigidbody, if any.
+    /// </summary>
     private Rigidbody heldObjectRigidbody = null;
+
+    /// <summary>
+    /// Stores the currently held object's rigidbody drag, if any, so it can be restored when the object is dropped.
+    /// </summary>
     private float heldObjectPreviousDrag = 0;
+
+    /// <summary>
+    /// Stores the currently held object's rigidbody constraints, if any, so they can be restored when the object is dropped.
+    /// </summary>
     private RigidbodyConstraints heldObjectPreviousRigidbodyConstraints = RigidbodyConstraints.None;
 
+    /// <summary>
+    /// Start is called before the first frame update.
+    /// </summary>
     private void Start()
     {
         this.heldObject = null;
     }
 
+    /// <summary>
+    /// Update is called every frame, if the MonoBehaviour is enabled.
+    /// </summary>
     void Update()
     {
         // Add delta time to sime since last pickup
-        if (timeSinceLastPickup <= TimeBetweenPickups)
+        if (timeInSecondsSinceLastPickupAction <= TimeBetweenPickups)
         {
-            timeSinceLastPickup += Time.deltaTime;
+            timeInSecondsSinceLastPickupAction += Time.deltaTime;
         }
 
         // If the pickup button is pressed, shoot a ray to try to pickup an object:
-        if (Input.GetButton("Fire1") && timeSinceLastPickup >= TimeBetweenPickups)
+        if (Input.GetButton("Fire1") && timeInSecondsSinceLastPickupAction >= TimeBetweenPickups)
         {
             // Reset the pickup timer so that the timer can start to when next pickup is allowed:
-            timeSinceLastPickup = 0;
+            timeInSecondsSinceLastPickupAction = 0;
 
             if (heldObject == null)
             {
-                PickupObject();
+                PickUpNearedGameObjectWithRigidbody();
             }
             else
             {
@@ -61,25 +98,20 @@ public class PickupController : MonoBehaviour
         }
     }
 
-    private void MoveObject()
-    {
-        Vector3 cameraPosition = new Vector3(this.gameObject.transform.position.x, 1.375f + this.gameObject.transform.position.y, this.gameObject.transform.position.z + 2.0f);
-        this.heldObject.transform.position = cameraPosition;
-    }
-
-    private void PickupObject()
+    /// <summary>
+    /// Shoots a forward ray based on configured settings and picks up the nearest object which the ray collides with.
+    /// </summary>
+    private void PickUpNearedGameObjectWithRigidbody()
     {
         if (this.heldObject != null)
         {
             return;
         }
 
-        Debug.Log("Attemping to pickup object.");
         GameObject pickupableObject = null;
 
         RaycastHit[] raycastHits;
         Ray pickupRay = new Ray(transform.position, transform.forward);
-        //Ray pickupRay = Camera.main.ScreenPointToRay(Input.mousePosition);
         raycastHits = Physics.RaycastAll(pickupRay, this.PickupRange, this.PickupLayer);
         Array.Sort(raycastHits, (RaycastHit a, RaycastHit b) => a.distance.CompareTo(b.distance));
         for (int i = 0; i < raycastHits.Length; i++)
@@ -104,17 +136,13 @@ public class PickupController : MonoBehaviour
                 heldObjectRigidbody.drag = 10;
                 heldObjectRigidbody.constraints = RigidbodyConstraints.FreezePosition;
                 heldObjectRigidbody.transform.parent = this.gameObject.transform;
-                Debug.Log("Object picked up.");
-            } else
-            {
-                Debug.Log("Object did not have a rigidbody.");
             }
-        } else
-        {
-            Debug.Log("Nothing to pick up.");
         }
     }
 
+    /// <summary>
+    /// Drops the currently held object, if any.
+    /// </summary>
     private void DropObject()
     {
         if (heldObject == null)
@@ -122,7 +150,6 @@ public class PickupController : MonoBehaviour
             return;
         }
 
-        Debug.Log("Attemping to drop object.");
         Rigidbody heldRigidbody = this.heldObject.GetComponent<Rigidbody>();
         if (this.heldObject != null)
         {
