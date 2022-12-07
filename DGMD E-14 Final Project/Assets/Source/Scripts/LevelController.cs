@@ -103,8 +103,8 @@ public class LevelController : MonoBehaviour
     void Start()
     {
         // Determines the Size of the Level:
-        decimal levelWidth = RandomNumbers.GetRandomDecimalInclusive(MinLevelWidth, MaxLevelWidth);
-        decimal levelHeight = RandomNumbers.GetRandomDecimalInclusive(MinLevelLength, MaxLevelLength);
+        float levelWidth = UnityEngine.Random.Range((float)MinLevelWidth, (float)MaxLevelWidth);
+        float levelHeight = UnityEngine.Random.Range((float)MinLevelLength, (float)MaxLevelLength);
         levelDimensions = Tuple.Create((int)Math.Floor(levelWidth), (int)Math.Floor(levelHeight));
         Debug.Log("Level size is " + levelDimensions.Item1 + " by " + levelDimensions.Item2);
 
