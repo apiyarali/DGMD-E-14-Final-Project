@@ -10,7 +10,7 @@ Nicholas Weber, Ali PiyarAli, & Josef Svoboda
 This is a final project for DGMD E-14 through Harvard Extension School. We are creating a virtual reality application/experience using the Unity game engine. The application will consist of a procedural operating room where the user is tasked with picking up objects which have fallen onto the floor and bringing them to the trashbin. 
 
 ### How to Install and Setup
-This project was created in Unity using the Occulus SDK for VR integration.
+This project was created in Unity using the Oculus SDK for VR integration.
 - Unity:
 	- This project is created for the following Unity version: 2021.3.13f1
 	- You will need an IDE such as Visual Studio Community and other usual Unity dependencies: https://unity.com/download
@@ -22,8 +22,8 @@ This project was created in Unity using the Occulus SDK for VR integration.
 ### How to Run
 - Close Unity, then start the Oculus app on your computer  to ensure the link between Unity and the hardware occurs.
 - Open Unity and load the project ensuring you select the version noted above.
-- Reconnect your VR headset to your development computer via USB after opening the Occulus app and Unity.
-- Your headset will prompt you for permissions (to update files and enable Occulus Link, for example) and you must ensure you provide these for the app to deploy via USB.
+- Reconnect your VR headset to your development computer via USB after opening the Oculus app and Unity.
+- Your headset will prompt you for permissions (to update files and enable Oculus Link, for example) and you must ensure you provide these for the app to deploy via USB.
 - Load the scene "ORScene" and press the play button within the editor to use mouse and keyboard controls.
 
 ### Points of Interest
