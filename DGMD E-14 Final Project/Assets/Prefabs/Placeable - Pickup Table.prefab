@@ -9,8 +9,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6987189667462844470}
-  - component: {fileID: 5343793561759030979}
   - component: {fileID: 5969807928333195363}
+  - component: {fileID: 6750317765126212741}
+  - component: {fileID: 775661764861033139}
   m_Layer: 0
   m_Name: Placeable - Pickup Table
   m_TagString: Untagged
@@ -34,19 +35,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!65 &5343793561759030979
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1533645953943955785}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 0.5}
-  m_Center: {x: 0, y: 0.5, z: 0}
 --- !u!114 &5969807928333195363
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -60,6 +48,41 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   XZRadiusInUnityUnits: 2
+--- !u!114 &6750317765126212741
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1533645953943955785}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ab83cb26270f0be4ea540dde193fe5e8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  EssentialObjectsToSpawn:
+  - {fileID: 3251682557730124017, guid: 1148ee6701bfe5d4d8ab60754cd4aa1a, type: 3}
+  HowManyOfEachEssentialObjectToSpawn: 0
+  NonEssentialObjectsToSpawn:
+  - {fileID: 3251682557730124017, guid: 1148ee6701bfe5d4d8ab60754cd4aa1a, type: 3}
+  SpawnPlaneOffset: {x: 0, y: 1, z: 0}
+  XZSpawnPlaneSize: {x: 3, y: 3}
+  RadiusOfUnspawnableCenter: 0
+  SpawnPointCandiateAttempts: 100
+  SecondsBetweenSpawns: 0.25
+--- !u!65 &775661764861033139
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1533645953943955785}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1, z: 0.5}
+  m_Center: {x: 0, y: 0.5, z: 0}
 --- !u!1 &8936907723900425212
 GameObject:
   m_ObjectHideFlags: 0

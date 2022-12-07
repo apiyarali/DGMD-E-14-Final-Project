@@ -146,19 +146,19 @@ public class PoissonPlaceableSpawner : MonoBehaviour
         while (numberOfTries < SpawnPointCandiateAttempts)
         {
             // TODO: Spawn objects from previously spawned objects in random direction
-            int xPositionCandidate = RandomNumbers.GetRandomIntegerInclusive(1, XZSpawnPlaneSize.x - 1);
-            int yPositionCandidate = RandomNumbers.GetRandomIntegerInclusive(1, XZSpawnPlaneSize.y - 1);
+            int xPositionCandidate = RandomNumbers.GetRandomIntegerInclusive(0, XZSpawnPlaneSize.x - 1);
+            int yPositionCandidate = RandomNumbers.GetRandomIntegerInclusive(0, XZSpawnPlaneSize.y - 1);
             if (levelData[xPositionCandidate, yPositionCandidate] == 0)
             {
                 // TODO: Sample for any other objects within the radius of this spawn point:
                 int randomRotation = Random.Range(0, 4) * 90;
-                Instantiate(placeableObject,
+                GameObject placedObject = Instantiate(placeableObject,
                     new Vector3(this.gameObject.transform.position.x - (XZSpawnPlaneSize.x / 2) + SpawnPlaneOffset.x + xPositionCandidate,
                     this.gameObject.transform.position.y + SpawnPlaneOffset.y,
                     this.gameObject.transform.position.z - (XZSpawnPlaneSize.y / 2) + SpawnPlaneOffset.z + yPositionCandidate), // Added to Z here because objects are only spawned on the XZ plane.
                     Quaternion.Euler(new Vector3(0, randomRotation, 0)));
                 levelData[xPositionCandidate, yPositionCandidate] = 1;
-
+                placedObject.transform.parent = this.transform;
                 int radius = GetPlaceableRadius(placeableObject);
 
                 // Block tiles around the spawn point based on the radius:
@@ -214,7 +214,6 @@ public class PoissonPlaceableSpawner : MonoBehaviour
 
     private int GetPlaceableRadius(GameObject placeable)
     {
-        // TODO: Make this default value a public parameter for the user to set.
         int radius = 2;
         PlaceableObject placeableObject = placeable.GetComponent(typeof(PlaceableObject)) as PlaceableObject;
 
