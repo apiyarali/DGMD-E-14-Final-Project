@@ -193,10 +193,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4a1995f38ac8e444c9052f335f0e525d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  RandomTranslations: 0
-  RandomScaling: 1
-  RandomRotation: 0
-  UniformTransformation: 1
+  ShouldEntityRandomlyTranslate: 0
+  ShouldEntityRandomlyScale: 1
+  ShouldEntityRandomlyRotate: 0
+  ShouldTransformationsBeUniformAlongAxis: 0
   MinTransformationMagnitude: {x: 0.02, y: 0.02, z: 0.02}
   MaxTransformationMagnitude: {x: 0.04, y: 0.04, z: 0.04}
   MinTransformationSpeed: {x: 0.02, y: 0.02, z: 0.02}
