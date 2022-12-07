@@ -16,5 +16,10 @@ This project was created in Unity using the Occulus SDK for VR integration.
 	- Depending on your wearable hardware, you will need a companion app for development: https://developer.oculus.com/
 
 ### How to Run
-	- Once the setup is complete, load the project using the Unity Hub and ensure to select the version noted above.
-	- Load the scene "ORScene" and press the play button within the editor to use mouse and keyboard controls.
+- Once the setup is complete, load the project using the Unity Hub and ensure to select the version noted above.
+- Load the scene "ORScene" and press the play button within the editor to use mouse and keyboard controls.
+	
+### Points of Interest
+- The C# scripts can be found in: "/DGMD E-14 Final Project/Assets/Source/Scripts/"
+- The prefab objects can be found in: "/DGMD E-14 Final Project/Assets/Prefabs/"
+- The OR scene can be found in: "/DGMD E-14 Final Project/Assets/Scenes/"
