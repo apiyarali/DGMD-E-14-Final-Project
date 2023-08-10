@@ -32,4 +32,4 @@ This project was created in Unity using the Oculus SDK for VR integration.
 - The OR scene can be found in: "/DGMD E-14 Final Project/Assets/Scenes/"
 
 ### Demo
-- https://www.youtube.com/watch?v=YrA0gC6HJTM
+- https://youtu.be/Z4403sVzfw4
