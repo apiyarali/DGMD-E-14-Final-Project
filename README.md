@@ -1,4 +1,4 @@
-# DGMD E-14 Final Project
+# Virtual Reality Operating Room
 
 ### Professor:
 Nabib Ahmed
